@@ -15,11 +15,11 @@
 
 1. Où se trouve physiquement le code qui fabrique votre page : sur votre ordinateur, sur GitHub ou sur PythonAnywhere ?
 
-   > _Ma réponse : Sur PythonAnywhere_
+   > _Ma réponse : Sur PythonAnywhere. GitHub garde le code et son historique, mais c'est le serveur PythonAnywhere qui exécute le code et fabrique la page._
 
 2. Pourquoi votre voisin(e) peut-il voir votre site, alors que vous n'avez rien installé sur son ordinateur ?
 
-   > _Ma réponse : Le code est envoyé depuis un serveur en ligne, tout navigateur peut y accéder avec le lien_
+   > _Ma réponse : Le code tourne sur un serveur en ligne. Le navigateur du voisin envoie simplement une demande à ce serveur avec le lien, et le serveur lui renvoie la page._
 
 ---
 
@@ -27,15 +27,15 @@
 
 1. Dans l'URL `https://www.google.com/maps`, quel est le nom de domaine ? Quel est le chemin ?
 
-   > _Ma réponse : domaine - google.com, chemin - /maps_ 
+   > _Ma réponse : Le nom de domaine est www.google.com et le chemin est /maps._
 
 2. Que veut dire le message *Not Found* ? Qui l'a envoyé : votre navigateur ou le serveur ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Not Found veut dire que la page demandée n'existe pas, c'est l'erreur 404. C'est le serveur qui l'envoie, car aucune route ne correspond au chemin demandé. Une majuscule ou un / en trop à la fin donne aussi une 404, le chemin doit donc être exact._
 
 3. Que se passe-t-il si deux fonctions portent le même nom dans `flask_app.py` ? (Indice : essayez, puis lisez l'Error log.)
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Le site ne démarre plus. L'Error log affiche l'erreur « AssertionError, View function mapping is overwriting an existing endpoint function ». Flask utilise le nom de la fonction pour identifier une route, deux routes ne peuvent donc pas avoir le même nom._
 
 ---
 
@@ -43,15 +43,19 @@
 
 1. Quelle est la différence entre ce que le serveur **envoie** et ce que le navigateur **affiche** ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Le serveur envoie seulement du texte avec des balises, visible avec Ctrl + U. Le navigateur interprète ces balises pour afficher une page mise en forme avec des titres, des listes et des images._
 
 2. À quoi servent les balises `<h1>`, `<p>`, `<ul>` et `<li>` ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse :_
+   > - _`<h1>` pour le titre principal de la page_
+   > - _`<p>` pour un paragraphe_
+   > - _`<ul>` pour une liste à puces_
+   > - _`<li>` pour un élément de cette liste_
 
 3. Pourquoi l'image s'affiche-t-elle alors qu'elle n'est pas sur votre serveur ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : La balise `<img>` contient l'adresse de l'image sur Wikimedia. Le navigateur lit cette adresse et va lui-même télécharger l'image sur ce serveur. Mon serveur ne fait que donner le lien._
 
 ---
 

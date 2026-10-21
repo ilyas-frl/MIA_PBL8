@@ -25,6 +25,25 @@ def accueil():
 #  Ajoutez vos nouvelles routes ci-dessous 👇
 # ---------------------------------------------------------------
 
+@app.get("/presentation")
+def presentation():
+    return """
+    <h1>Ilyas Afryad</h1>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" width="100">
+    <p>Je suis étudiant à l'<strong>Icam</strong> et je découvre le fonctionnement du Web.</p>
+    <h2>Ce que j'aime</h2>
+    <ul>
+        <li>Le sport</li>
+        <li>La musique</li>
+        <li>Les jeux vidéo</li>
+        <li>Le code</li>
+    </ul>
+    """
+
+
+@app.get("/loisirs")
+def loisirs():
+    return "Mes loisirs : le sport, la musique, les jeux vidéo et le code."
 
 
 # ---------------------------------------------------------------
