@@ -8,7 +8,7 @@
 #  Les consignes sont dans le dossier "exercices/".
 # ---------------------------------------------------------------
 
-from flask import Flask
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -18,32 +18,58 @@ app = Flask(__name__)
 # Flask exécute la fonction accueil() et renvoie son résultat au navigateur.
 @app.get("/")
 def accueil():
-    return "Tranquil mon frere, bienvenue sur le site a Lea"
+    return render_template("accueil.html")
 
 
 # ---------------------------------------------------------------
 #  Ajoutez vos nouvelles routes ci-dessous 👇
 # ---------------------------------------------------------------
 
+# Exercices 2 à 5 : une page de présentation (template + boucle)
 @app.get("/presentation")
 def presentation():
-    return """
-    <h1>Ilyas Afryad</h1>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" width="100">
-    <p>Je suis étudiant à l'<strong>Icam</strong> et je découvre le fonctionnement du Web.</p>
-    <h2>Ce que j'aime</h2>
-    <ul>
-        <li>Le sport</li>
-        <li>La musique</li>
-        <li>Les jeux vidéo</li>
-        <li>Le code</li>
-    </ul>
-    """
+    return render_template("presentation.html", prenom="Ilyas", nom="Afryad",
+                           loisirs=["Le sport", "La musique", "Les jeux vidéo", "Le code"])
 
 
 @app.get("/loisirs")
 def loisirs():
-    return "Mes loisirs : le sport, la musique, les jeux vidéo et le code."
+    return render_template("loisirs.html",
+                           loisirs=["Le sport", "La musique", "Les jeux vidéo", "Le code"])
+
+
+# Exercice 7 : une information dans le chemin
+# (le template échappe le HTML : /bonjour/<button>... ne s'injecte plus)
+@app.get("/bonjour/<prenom>")
+def bonjour(prenom):
+    return render_template("bonjour.html", prenom=prenom)
+
+
+# Exercice 7 : des paramètres après le "?"
+OPERATIONS = {
+    "plus": ("+", lambda a, b: a + b),
+    "moins": ("-", lambda a, b: a - b),
+    "fois": ("×", lambda a, b: a * b),
+    "divise": ("÷", lambda a, b: a / b),
+}
+
+
+@app.get("/calcul")
+def calcul():
+    try:
+        a = int(request.args.get("a", 0))
+        b = int(request.args.get("b", 0))
+    except ValueError:
+        return "Erreur : a et b doivent être des nombres entiers.", 400
+
+    op = request.args.get("op", "plus")
+    if op not in OPERATIONS:
+        return f"Erreur : opération inconnue. Choisissez parmi {', '.join(OPERATIONS)}.", 400
+    if op == "divise" and b == 0:
+        return "Erreur : division par zéro impossible.", 400
+
+    symbole, fonction = OPERATIONS[op]
+    return f"{a} {symbole} {b} = {fonction(a, b)}"
 
 
 # ---------------------------------------------------------------

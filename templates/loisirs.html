@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block titre %}Loisirs{% endblock %}
+{% block contenu %}
+    <h1>Mes loisirs</h1>
+    <ul>
+    {% for loisir in loisirs %}
+        <li>{{ loisir }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

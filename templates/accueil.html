@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block titre %}Accueil{% endblock %}
+{% block contenu %}
+    <h1>Bienvenue sur mon site !</h1>
+    <p>Tranquille mon frère, bienvenue sur le site d'Ilyas.</p>
+    <p>Ce site me sert à découvrir le fonctionnement du Web.</p>
+    <p>Un lien vers un autre site : <a href="https://fr.wikipedia.org/wiki/World_Wide_Web">l'histoire du Web</a>.</p>
+
+    <h2>Les petites expériences</h2>
+    <ul>
+        <li><a href="/bonjour/Ilyas">/bonjour/Ilyas</a> : une information dans le chemin</li>
+        <li><a href="/calcul?a=6&b=3&op=fois">/calcul?a=6&amp;b=3&amp;op=fois</a> : des paramètres d'URL</li>
+    </ul>
+{% endblock %}

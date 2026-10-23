@@ -15,11 +15,11 @@
 
 1. Où se trouve physiquement le code qui fabrique votre page : sur votre ordinateur, sur GitHub ou sur PythonAnywhere ?
 
-   > _Ma réponse : Sur PythonAnywhere. GitHub garde le code et son historique, mais c'est le serveur PythonAnywhere qui exécute le code et fabrique la page._
+   > _Ma réponse : Le code qui fabrique la page se trouve sur le serveur PythonAnywhere._
 
 2. Pourquoi votre voisin(e) peut-il voir votre site, alors que vous n'avez rien installé sur son ordinateur ?
 
-   > _Ma réponse : Le code tourne sur un serveur en ligne. Le navigateur du voisin envoie simplement une demande à ce serveur avec le lien, et le serveur lui renvoie la page._
+   > _Ma réponse : Le site est hébergé sur un serveur accessible par Internet, donc n'importe quel navigateur peut l'afficher avec le lien._
 
 ---
 
@@ -31,11 +31,11 @@
 
 2. Que veut dire le message *Not Found* ? Qui l'a envoyé : votre navigateur ou le serveur ?
 
-   > _Ma réponse : Not Found veut dire que la page demandée n'existe pas, c'est l'erreur 404. C'est le serveur qui l'envoie, car aucune route ne correspond au chemin demandé. Une majuscule ou un / en trop à la fin donne aussi une 404, le chemin doit donc être exact._
+   > _Ma réponse : Not Found signifie que la page demandée n'existe pas, et c'est le serveur qui envoie ce message._
 
 3. Que se passe-t-il si deux fonctions portent le même nom dans `flask_app.py` ? (Indice : essayez, puis lisez l'Error log.)
 
-   > _Ma réponse : Le site ne démarre plus. L'Error log affiche l'erreur « AssertionError, View function mapping is overwriting an existing endpoint function ». Flask utilise le nom de la fonction pour identifier une route, deux routes ne peuvent donc pas avoir le même nom._
+   > _Ma réponse : Le site ne démarre plus et l'Error log affiche une AssertionError, car deux routes ne peuvent pas avoir le même nom de fonction._
 
 ---
 
@@ -43,19 +43,15 @@
 
 1. Quelle est la différence entre ce que le serveur **envoie** et ce que le navigateur **affiche** ?
 
-   > _Ma réponse : Le serveur envoie seulement du texte avec des balises, visible avec Ctrl + U. Le navigateur interprète ces balises pour afficher une page mise en forme avec des titres, des listes et des images._
+   > _Ma réponse : Le serveur envoie du texte avec des balises, et le navigateur interprète ces balises pour afficher une page mise en forme._
 
 2. À quoi servent les balises `<h1>`, `<p>`, `<ul>` et `<li>` ?
 
-   > _Ma réponse :_
-   > - _`<h1>` pour le titre principal de la page_
-   > - _`<p>` pour un paragraphe_
-   > - _`<ul>` pour une liste à puces_
-   > - _`<li>` pour un élément de cette liste_
+   > _Ma réponse : La balise h1 sert au titre principal, p à un paragraphe, ul à une liste à puces et li à chaque élément de cette liste._
 
 3. Pourquoi l'image s'affiche-t-elle alors qu'elle n'est pas sur votre serveur ?
 
-   > _Ma réponse : La balise `<img>` contient l'adresse de l'image sur Wikimedia. Le navigateur lit cette adresse et va lui-même télécharger l'image sur ce serveur. Mon serveur ne fait que donner le lien._
+   > _Ma réponse : Le navigateur télécharge lui-même l'image depuis le serveur de Wikimedia grâce à l'adresse indiquée dans la balise img._
 
 ---
 
@@ -63,11 +59,11 @@
 
 1. Pourquoi est-ce une bonne idée de séparer le code Python et le HTML ? (Pensez à une équipe avec un développeur et un graphiste.)
 
-   > _Ma réponse :_ 
+   > _Ma réponse : La séparation rend le code plus lisible et permet au développeur et au graphiste de travailler chacun sur leurs fichiers sans se gêner._
 
 2. Les `{{ prenom }}` sont-ils remplacés par le serveur ou par le navigateur ? Comment l'avez-vous vérifié ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Ils sont remplacés par le serveur, ce qui se vérifie avec Ctrl + U puisque le code source affiche directement le prénom._
 
 ---
 
@@ -75,15 +71,15 @@
 
 1. Quelle est la différence de rôle entre le HTML et le CSS ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Le HTML définit la structure de la page alors que le CSS définit son apparence._
 
 2. Pour afficher votre page `/presentation`, combien de fichiers le navigateur doit-il télécharger ? (Vous pourrez le vérifier à l'exercice suivant !)
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Le navigateur télécharge trois fichiers, à savoir la page HTML, la feuille de style CSS et l'image._
 
 3. Pourquoi faut-il parfois faire **Ctrl + F5** pour voir les changements de CSS ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Le navigateur garde l'ancien fichier CSS en mémoire dans son cache, et Ctrl + F5 l'oblige à le télécharger à nouveau._
 
 ---
 
@@ -91,19 +87,19 @@
 
 1. Que signifie HTTP ? Qui envoie la **requête** et qui envoie la **réponse** ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : HTTP signifie HyperText Transfer Protocol, le navigateur envoie la requête et le serveur envoie la réponse._
 
 2. Combien de requêtes votre page `/presentation` a-t-elle déclenchées ? Lesquelles ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : La page a déclenché quatre requêtes, à savoir presentation, style.css, l'image du logo Python et favicon.ico._
 
 3. Que signifie le code `200` ? Et le code `404` de la favicon ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Le code 200 signifie que la requête a réussi, et le code 404 signifie que la favicon n'existe pas sur le serveur._
 
 4. Pourquoi les modifications faites dans l'onglet Éléments ne sont-elles pas visibles par les autres visiteurs ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Les modifications changent seulement la copie de la page dans le navigateur, et non le code sur le serveur._
 
 ---
 
@@ -111,15 +107,15 @@
 
 1. Dans l'URL `https://www.youtube.com/results?search_query=chat`, quel est le nom du paramètre ? Quelle est sa valeur ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Le nom du paramètre est search_query et sa valeur est chat._
 
 2. Pourquoi le serveur plante-t-il avec `a=bonjour` ? Que faudrait-il faire pour l'éviter ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Le serveur plante car « bonjour » ne peut pas être converti en nombre, il faut donc vérifier la valeur avant de la convertir._
 
 3. Pourquoi est-il dangereux d'afficher **tel quel** ce que l'utilisateur envoie ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Un visiteur peut injecter du HTML ou un script malveillant qui s'exécute dans le navigateur des autres visiteurs._
 
 ---
 

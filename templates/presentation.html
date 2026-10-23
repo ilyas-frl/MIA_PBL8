@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block titre %}Présentation{% endblock %}
+{% block contenu %}
+    <h1>{{ prenom }} {{ nom }}</h1>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" width="100" alt="Logo Python">
+    <p>Je suis étudiant à l'<strong>Icam</strong> et je découvre le fonctionnement du Web.</p>
+    <h2>Ce que j'aime</h2>
+    <ul>
+    {% for loisir in loisirs %}
+        <li>{{ loisir }}</li>
+    {% endfor %}
+    </ul>
+{% endblock %}
