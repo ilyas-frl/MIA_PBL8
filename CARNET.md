@@ -123,15 +123,15 @@
 
 1. Quelle est la différence visible entre GET et POST ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : En GET les données apparaissent dans l'URL, alors qu'en POST elles passent dans le corps de la requête et l'URL reste inchangée._
 
 2. Pour un formulaire de **recherche**, quelle méthode choisiriez-vous ? Et pour un formulaire de **connexion avec mot de passe** ? Pourquoi ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : GET convient à une recherche car l'URL peut être partagée, et POST convient à une connexion car le mot de passe ne doit pas apparaître dans l'URL._
 
 3. Les données envoyées en POST sont-elles vraiment « secrètes » ? (Pensez à ce que vous avez vu dans l'onglet Réseau.)
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Les données POST ne sont pas secrètes, car elles restent lisibles dans l'onglet Réseau des outils de développement._
 
 ---
 
@@ -139,15 +139,15 @@
 
 1. Quelle est la différence entre une erreur `4xx` et une erreur `5xx` ? Qui est « fautif » dans chaque cas ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Une erreur 4xx vient d'une mauvaise demande du client, alors qu'une erreur 5xx vient d'un problème du serveur._
 
 2. Comment fonctionne une redirection ? Qui fait la deuxième requête : le serveur ou le navigateur ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Le serveur répond avec un code 302 et la nouvelle adresse dans l'en-tête Location, puis le navigateur fait lui-même la deuxième requête._
 
 3. Donnez un exemple de situation où un vrai site utilise une redirection.
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Un site redirige vers la page de connexion quand un visiteur non connecté essaie d'accéder à son compte._
 
 ---
 
@@ -155,19 +155,19 @@
 
 1. Citez trois informations que le serveur connaît sur vous, sans que vous ayez rien rempli.
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Le serveur connaît l'adresse IP, le navigateur avec le système d'exploitation, ainsi que les langues préférées du visiteur._
 
 2. À quoi peut servir l'en-tête `Accept-Language` pour un site comme Wikipédia ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : L'en-tête Accept-Language permet à Wikipédia de proposer directement la page dans la langue du visiteur._
 
 3. Dans l'Access log, retrouvez une requête qui a reçu un code `404`. Quelle page était demandée ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : La page demandée était /favicon.ico, que le navigateur cherche automatiquement pour l'icône de l'onglet._
 
 4. Après cet exercice, que pensez-vous de la notion de « navigation anonyme » ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : La navigation n'est pas vraiment anonyme, car le serveur reçoit et enregistre toujours l'adresse IP et les informations du navigateur._
 
 ---
 
@@ -175,15 +175,15 @@
 
 1. Quelle est la différence entre une page HTML et une réponse JSON ? À qui chacune est-elle destinée ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Une page HTML est mise en forme pour un humain, alors qu'une réponse JSON contient des données brutes destinées à un programme._
 
 2. Dans la page `/horloge`, quel code s'exécute sur le **serveur** et quel code s'exécute dans le **navigateur** ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Le code Python qui calcule l'heure s'exécute sur le serveur, et le code JavaScript qui met à jour l'affichage s'exécute dans le navigateur._
 
 3. Citez une application de votre téléphone qui, selon vous, utilise une API. Quelles données échange-t-elle ?
 
-   > _Ma réponse :_ 
+   > _Ma réponse : Une application météo utilise une API pour envoyer la position du téléphone et recevoir la température et les prévisions._
 
 ---
 
@@ -191,4 +191,4 @@
 
 En quelques phrases, expliquez à un ami ce qui se passe entre le moment où il tape une adresse dans son navigateur et celui où la page s'affiche :
 
-> _Ma réponse :_ 
+> _Ma réponse : Le navigateur envoie une requête HTTP au serveur, qui fabrique la page HTML et la renvoie, puis le navigateur télécharge le CSS et les images avant d'afficher la page._ 

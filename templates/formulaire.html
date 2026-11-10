@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block titre %}Formulaire{% endblock %}
+{% block contenu %}
+    <h1>Faisons connaissance</h1>
+    <form action="/salut" method="post">
+        <label>Votre prénom : <input type="text" name="prenom"></label>
+        <label>Votre ville : <input type="text" name="ville"></label>
+        <label>Votre couleur préférée :
+            <select name="couleur">
+            {% for valeur, nom in couleurs.items() %}
+                <option value="{{ valeur }}">{{ nom }}</option>
+            {% endfor %}
+            </select>
+        </label>
+        <button type="submit">Envoyer</button>
+    </form>
+{% endblock %}

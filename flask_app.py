@@ -8,7 +8,9 @@
 #  Les consignes sont dans le dossier "exercices/".
 # ---------------------------------------------------------------
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, abort, jsonify
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 app = Flask(__name__)
 
@@ -70,6 +72,94 @@ def calcul():
 
     symbole, fonction = OPERATIONS[op]
     return f"{a} {symbole} {b} = {fonction(a, b)}"
+
+
+# Exercice 8 : les formulaires (GET et POST)
+COULEURS = {"tomato": "Rouge", "teal": "Vert", "royalblue": "Bleu"}
+
+
+@app.get("/formulaire")
+def formulaire():
+    return render_template("formulaire.html", couleurs=COULEURS)
+
+
+@app.route("/salut", methods=["GET", "POST"])
+def salut():
+    if request.method == "POST":
+        donnees = request.form
+    else:
+        donnees = request.args
+    prenom = donnees.get("prenom") or "inconnu"
+    ville = donnees.get("ville") or "nulle part"
+    couleur = donnees.get("couleur")
+    if couleur not in COULEURS:
+        couleur = "inherit"
+    return render_template("salut.html", prenom=prenom, ville=ville,
+                           couleur=couleur, methode=request.method)
+
+
+# Exercice 9 : les codes de statut
+# 3xx : une redirection
+@app.get("/home")
+def home():
+    return redirect("/")
+
+
+# 4xx : un accès interdit
+@app.get("/secret")
+def secret():
+    abort(403)
+
+
+# 418 : « I'm a teapot », un code humoristique (RFC 2324)
+@app.get("/the")
+def the():
+    abort(418)
+
+
+# Des pages d'erreur personnalisées
+@app.errorhandler(404)
+def page_introuvable(erreur):
+    return render_template("404.html"), 404
+
+
+@app.errorhandler(403)
+def acces_interdit(erreur):
+    return render_template("403.html"), 403
+
+
+@app.errorhandler(418)
+def theiere(erreur):
+    return render_template("418.html"), 418
+
+
+# Exercice 10 : ce que le serveur sait de vous
+@app.get("/moi")
+def moi():
+    return render_template(
+        "moi.html",
+        ip=request.headers.get("X-Real-IP", request.remote_addr),
+        navigateur=request.headers.get("User-Agent"),
+        langues=request.headers.get("Accept-Language"),
+        entetes=request.headers,
+    )
+
+
+# Exercice 11 : une API qui renvoie du JSON
+@app.get("/api/heure")
+def api_heure():
+    maintenant = datetime.now(ZoneInfo("Europe/Paris"))
+    return jsonify({
+        "heure": maintenant.strftime("%H:%M:%S"),
+        "date": maintenant.strftime("%d/%m/%Y"),
+        "message": "Bonjour depuis mon API !",
+    })
+
+
+# Exercice 11 : une page qui utilise l'API
+@app.get("/horloge")
+def horloge():
+    return render_template("horloge.html")
 
 
 # ---------------------------------------------------------------
