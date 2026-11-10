@@ -83,18 +83,11 @@ PROJETS = [
         "explication": "206 Partial Content : le serveur n'envoie qu'une partie de la ressource (c'est ce qui permet d'avancer dans une vidéo). Une partie du jeu tourne déjà, le reste arrive.",
     },
     {
-        "statut": 200, "texte_statut": "OK", "nom": "Projet Drone",
-        "phrase": "Un projet Icam autour d'un drone.",
+        "statut": 200, "texte_statut": "OK", "nom": "Projets Icam",
+        "phrase": "Projet drone, projet bateau.",
         "lien": "",
         "sous_liens": [],
-        "explication": "200 OK : la requête a réussi. Le projet est terminé et rendu.",
-    },
-    {
-        "statut": 200, "texte_statut": "OK", "nom": "Projet Bateau",
-        "phrase": "Un projet Icam autour d'un bateau.",
-        "lien": "",
-        "sous_liens": [],
-        "explication": "200 OK : la requête a réussi. Le projet est terminé et rendu.",
+        "explication": "200 OK : la requête a réussi. Ces projets sont terminés et rendus.",
     },
 ]
 
