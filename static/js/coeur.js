@@ -92,7 +92,7 @@
         return promesseEnTetes;
     }
 
-    // ---------- Coloration syntaxique (maison, minimale) ----------
+    // ---------- Coloration syntaxique (minimale) ----------
 
     function echapper(texte) {
         return String(texte).replace(/[&<>"]/g, function (c) {

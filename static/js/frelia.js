@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------
-//  frelia.js : le dégradé « Halo » de frelia.fr, en WebGL2 écrit à la main
+//  frelia.js : le dégradé « Halo » de frelia.fr, en WebGL2
 //  Trois gris (#999999 → #000000 → #888888) qui ondulent lentement,
 //  avec un grain de pellicule, comme sur le site de Frelia.
 // ---------------------------------------------------------------

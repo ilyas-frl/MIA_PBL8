@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------
-//  globe.js : le hero de l'accueil, en WebGL2 écrit à la main
+//  globe.js : le hero de l'accueil, en WebGL2
 //  Un globe de particules (le Web) traversé par des paquets qui
 //  voyagent entre des nœuds. Au défilement, les particules se
 //  réassemblent pour écrire « ILYAS ».
