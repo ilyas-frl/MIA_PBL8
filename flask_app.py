@@ -91,53 +91,6 @@ PROJETS = [
     },
 ]
 
-# Frelia, mon agence : chaque lettre du nom est un service
-SERVICES_FRELIA = [
-    {"lettre": "F", "nom": "Façade : sites web", "statut": 200, "texte_statut": "OK",
-     "phrase": "Votre vitrine, ouverte même quand la boutique est fermée. Un site rapide, beau, pensé pour votre commerce.",
-     "lien": "https://frelia.fr/creation-site"},
-    {"lettre": "R", "nom": "Référencement IA", "statut": 200, "texte_statut": "OK",
-     "phrase": "Quand on demande à une IA la meilleure adresse du coin, on travaille pour que ce soit votre nom qui sorte, et aussi sur Google.",
-     "lien": "https://frelia.fr/referencement"},
-    {"lettre": "E", "nom": "État des lieux", "statut": 200, "texte_statut": "OK",
-     "phrase": "On passe au crible votre site, votre fiche Google et ce que les IA disent de vous, puis on vous dit quoi corriger, dans l'ordre.",
-     "lien": "https://frelia.fr/etat-des-lieux"},
-    {"lettre": "L", "nom": "Logiciels sur mesure", "statut": 200, "texte_statut": "OK",
-     "phrase": "Commandes, réservations, stocks : des outils pensés pour votre façon de travailler.",
-     "lien": ""},
-    {"lettre": "I", "nom": "IA et automatisations", "statut": 102, "texte_statut": "Processing",
-     "phrase": "Un assistant qui répond à vos clients quand vous n'êtes pas là. Bientôt.",
-     "lien": ""},
-    {"lettre": "A", "nom": "Accessibilité", "statut": 102, "texte_statut": "Processing",
-     "phrase": "Un site que tout le monde peut utiliser, quels que soient sa vue, ses mains ou son écran. Bientôt.",
-     "lien": ""},
-]
-
-# Les prix de lancement (réservés aux 10 premiers clients), repris de frelia.fr
-TARIFS_FRELIA = [
-    {"type": "Site vitrine", "des": "500 €", "maintenance": "30 à 60 € par mois",
-     "detail": "D'une page à sept pages : formulaire de contact, carte Google Maps, galerie, réservation ou blog."},
-    {"type": "E-commerce", "des": "1 200 €", "maintenance": "60 à 150 € par mois",
-     "detail": "Une boutique Shopify : paiement en ligne, livraison, collections, avis clients."},
-    {"type": "Site conceptuel", "des": "1 500 €", "maintenance": "50 à 100 € par mois",
-     "detail": "Un site immersif pour marquer les esprits : direction artistique, animations, scène 3D."},
-    {"type": "Application web", "des": "2 000 €", "maintenance": "100 à 300 € par mois",
-     "detail": "Réservation, espace client, tableau de bord : sur devis, après un atelier de cadrage."},
-]
-
-ETAPES_FRELIA = [
-    {"nom": "Échange", "phrase": "On parle de votre commerce et on dessine le plan du site."},
-    {"nom": "Maquette", "phrase": "Vous recevez une maquette gratuite sous 5 jours, sans engagement."},
-    {"nom": "Construction", "phrase": "Le site prend vie et s'adapte à chaque écran : ordinateur, tablette, téléphone."},
-    {"nom": "Mise en ligne", "phrase": "De 2 semaines à 2 mois selon le projet. Vous payez à la réception du site."},
-]
-
-CONCEPTS_FRELIA = [
-    {"nom": "Tonton Forno", "metier": "Pizzeria, brut et chaleureux", "lien": "https://frelia.fr/concepts/pizzeria/"},
-    {"nom": "Maison Orvane", "metier": "Salon de coiffure, minimal et luxueux", "lien": "https://frelia.fr/concepts/coiffure/"},
-    {"nom": "Altène Automobiles", "metier": "Concession auto, technique et précis", "lien": "https://frelia.fr/concepts/auto/"},
-]
-
 # Les expériences du labo : une requête = une notion du Web
 EXPERIENCES = [
     {"methode": "GET", "chemin": "/bonjour/Ilyas", "statut": "", "lien": "/bonjour/Ilyas",
@@ -231,11 +184,10 @@ def presentation():
                            loisirs=LOISIRS, langues=LANGUES, projets=PROJETS)
 
 
-# Frelia : la page qui décrit les services de mon agence
+# Frelia : la page de mon agence web
 @app.get("/frelia")
 def frelia():
-    return render_template("frelia.html", services=SERVICES_FRELIA, tarifs=TARIFS_FRELIA,
-                           etapes=ETAPES_FRELIA, concepts=CONCEPTS_FRELIA)
+    return render_template("frelia.html")
 
 
 @app.get("/loisirs")

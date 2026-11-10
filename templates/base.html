@@ -10,13 +10,34 @@
     <link rel="preload" href="/static/fonts/anybody-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/static/css/site.css">
     <script>
-        // Transition entre les pages : on allume la barre bleue juste avant le premier affichage
-        addEventListener("pagereveal", function (e) {
-            if (!e.viewTransition) return;
+        // Transitions entre les pages. En général : une barre bleue traverse l'écran.
+        // Vers /frelia (ou en repartant) : un rideau noir, aux couleurs de Frelia.
+        (function () {
             var html = document.documentElement;
-            html.classList.add("vt-arrivee");
-            e.viewTransition.finished.finally(function () { html.classList.remove("vt-arrivee"); });
-        });
+            function cheminDe(url) { try { return new URL(url).pathname; } catch (e) { return ""; } }
+            function sens(depart, arrivee) {
+                if (arrivee === "/frelia" && depart !== "/frelia") return "vers-frelia";
+                if (depart === "/frelia" && arrivee !== "/frelia") return "depuis-frelia";
+                return "";
+            }
+            function pendant(transition, classe) {
+                html.classList.add(classe);
+                transition.finished.finally(function () { html.classList.remove(classe); });
+            }
+            // Sur l'ancienne page, juste avant la photo de départ
+            addEventListener("pageswap", function (e) {
+                if (!e.viewTransition || !e.activation || !e.activation.entry) return;
+                var classe = sens(location.pathname, cheminDe(e.activation.entry.url));
+                if (classe) pendant(e.viewTransition, classe);
+            });
+            // Sur la nouvelle page, juste avant le premier affichage
+            addEventListener("pagereveal", function (e) {
+                if (!e.viewTransition) return;
+                var activation = window.navigation && navigation.activation;
+                var depart = activation && activation.from ? cheminDe(activation.from.url) : "";
+                pendant(e.viewTransition, sens(depart, location.pathname) || "vt-arrivee");
+            });
+        })();
     </script>
     {% block tete %}{% endblock %}
 </head>

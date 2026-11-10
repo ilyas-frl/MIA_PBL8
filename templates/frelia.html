@@ -1,82 +1,20 @@
 {% extends "base.html" %}
 {% block titre %}Frelia{% endblock %}
-{% block description %}Frelia, l'agence web d'Ilyas Afryad : sites vitrines, e-commerce, référencement IA, état des lieux et logiciels sur mesure pour les commerces.{% endblock %}
+{% block description %}Frelia, l'agence web d'Ilyas Afryad : des sites, du référencement IA et des outils sur mesure pour les commerces.{% endblock %}
+{% block classe_page %}page-frelia{% endblock %}
 {% block contenu %}
-<div class="page">
-    <header class="entete-page">
-        <h1 class="affiche elastique">Frelia</h1>
-        <p class="chapo">Mon agence web. Des sites, du référencement IA et des outils sur mesure pour les commerces.</p>
+<section class="frelia-scene" aria-labelledby="frelia-titre">
+    <canvas id="degrade-frelia" aria-hidden="true"></canvas>
+    <div class="frelia-contenu">
+        <h1 id="frelia-titre" class="frelia-logo"><img src="/static/img/frelia-logo-blanc.svg" alt="Frelia" width="1801" height="442"></h1>
+        <p class="frelia-identite">Frelia est mon agence web. Elle crée des sites, du référencement IA et des outils sur mesure pour les commerces de quartier : restaurants, boutiques, salons. Chaque lettre du nom est un savoir-faire, de la Façade à l'Accessibilité. L'idée est simple : un commerce du coin mérite un site aussi soigné que celui d'une grande marque, et d'être trouvé sur Google comme dans les réponses des IA.</p>
         <p class="frelia-actions">
-            <a class="bouton" href="https://frelia.fr/creation-site">Recevoir une maquette gratuite</a>
-            <a href="https://frelia.fr/referencement">Tester ma visibilité gratuitement</a>
+            <a class="bouton-frelia" href="mailto:ilyas.afryad@frelia.fr">Nous contacter</a>
+            <a class="lien-frelia" href="https://frelia.fr">Visiter frelia.fr</a>
         </p>
-    </header>
-
-    <section aria-labelledby="titre-services">
-        <h2 class="titre-section" id="titre-services">Six lettres, six services</h2>
-        <p class="texte gris">Chaque lettre de Frelia est un service. Comme les projets de l'accueil, chacun a le code HTTP qui dit où il en est.</p>
-        <ul class="lettres-frelia">
-            {% for service in services %}
-            <li class="service{{ ' bientot' if service.statut < 200 else '' }}">
-                <span class="service-lettre elastique" data-base="130" data-max="150" aria-hidden="true">{{ service.lettre }}</span>
-                <div class="service-texte">
-                    <p class="service-statut mono" data-famille="{{ 'info' if service.statut < 200 else 'succes' }}">{{ service.statut }} {{ service.texte_statut }}</p>
-                    <h3 class="service-nom">{{ service.nom }}</h3>
-                    <p>{{ service.phrase }}</p>
-                    {% if service.lien %}<p><a href="{{ service.lien }}">En savoir plus sur frelia.fr</a></p>{% endif %}
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
-    </section>
-
-    <section class="frelia-bloc" aria-labelledby="titre-tarifs">
-        <h2 class="titre-section" id="titre-tarifs">Des prix clairs</h2>
-        <p class="texte gris">Tarif de lancement, réservé aux 10 premiers clients, en échange d'un avis Google et du droit de présenter le site comme réalisation. La maquette est gratuite et le paiement se fait à la réception du site.</p>
-        <ul class="tarifs-frelia">
-            {% for tarif in tarifs %}
-            <li>
-                <h3 class="tarif-type">{{ tarif.type }}</h3>
-                <p class="tarif-prix"><span class="tarif-des">dès</span> {{ tarif.des }}</p>
-                <p class="tarif-detail">{{ tarif.detail }}</p>
-                <p class="tarif-maintenance mono">maintenance : {{ tarif.maintenance }}</p>
-            </li>
-            {% endfor %}
-        </ul>
-        <p class="gris" style="margin-top:16px">Tous les prix sont en euros, TVA non applicable (art. 293 B du CGI). Le détail des trois formules de chaque type est sur <a href="https://frelia.fr/creation-site">frelia.fr</a>.</p>
-    </section>
-
-    <section class="frelia-bloc" aria-labelledby="titre-etapes">
-        <h2 class="titre-section" id="titre-etapes">Comment ça se passe</h2>
-        <ol class="etapes-frelia">
-            {% for etape in etapes %}
-            <li>
-                <h3>{{ etape.nom }}</h3>
-                <p>{{ etape.phrase }}</p>
-            </li>
-            {% endfor %}
-        </ol>
-    </section>
-
-    <div class="grille frelia-bloc frelia-duo">
-        <section class="colonne-gauche" aria-labelledby="titre-offerts">
-            <h2 class="titre-section" id="titre-offerts">Des sites offerts</h2>
-            <p class="texte">Pour se lancer, Frelia crée gratuitement le site vitrine de quelques entreprises. En échange, le site est présenté comme réalisation sur frelia.fr, avec un avis Google et un court témoignage. Tout est écrit à l'avance, sans petits caractères.</p>
-            <p><a href="https://frelia.fr/sites-offerts">Voir l'offre et candidater</a></p>
-        </section>
-        <section class="colonne-droite" aria-labelledby="titre-concepts">
-            <h2 class="titre-section" id="titre-concepts">Trois concepts</h2>
-            <ul class="liste-concepts">
-                {% for concept in concepts %}
-                <li><a href="{{ concept.lien }}">{{ concept.nom }}</a><span class="gris">{{ concept.metier }}</span></li>
-                {% endfor %}
-            </ul>
-            <p class="gris" style="margin-top:12px">Des sites imaginés pour des commerces fictifs, dans trois styles très différents.</p>
-        </section>
     </div>
-
-    <aside class="encart frelia-bloc">
-        <p>Une question, un projet ? Écrivez à <a href="mailto:contact@frelia.fr">contact@frelia.fr</a>. Réponse sous 48 h, par une personne.</p>
-    </aside>
-</div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/frelia.js" defer></script>
 {% endblock %}

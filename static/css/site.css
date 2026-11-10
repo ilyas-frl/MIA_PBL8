@@ -917,61 +917,127 @@ main { display: block; }
 .graphe-legende { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; font-family: var(--mono); font-size: 0.78rem; color: var(--gris); margin-bottom: 8px; }
 .graphe-legende strong { color: var(--lien); }
 
-/* ---------- /frelia ---------- */
+/* ---------- /frelia : aux couleurs de frelia.fr ---------- */
 
-.frelia-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: 32px; }
-.frelia-actions .bouton { text-decoration: none; }
-.frelia-actions .bouton:visited { color: var(--encre); }
-.frelia-actions .bouton:hover { color: var(--papier); }
+@font-face {
+    font-family: "Geist";
+    src: url("/static/fonts/geist-latin-wght-normal.woff2") format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
 
-.frelia-bloc { margin-top: clamp(64px, 9vw, 140px); }
+.page-frelia {
+    --fond: #000000;
+    --papier: #0B0B0B;
+    --encre: #FFFFFF;
+    --gris: rgb(255 255 255 / 0.66);
+    --ligne: rgb(255 255 255 / 0.22);
+    --lien: #FFFFFF;
+    --visite: #FFFFFF;
+    background: #000;
+    color: #fff;
+}
+.page-frelia .nav { background: #000; }
+.page-frelia .hud { background: #000; }
+.page-frelia [data-famille="succes"] { color: #fff; }
 
-.lettres-frelia { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--encre); }
-.service {
-    display: grid;
-    grid-template-columns: clamp(110px, 16vw, 230px) minmax(0, 1fr);
-    gap: 8px 40px;
+.frelia-scene {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    /* Le fond de secours, si WebGL n'est pas là */
+    background:
+        radial-gradient(ellipse 70% 60% at 30% 35%, #999 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 75% 70%, #888 0%, transparent 70%),
+        #000;
+}
+.frelia-scene canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    display: block;
+    opacity: 0;
+    transition: opacity 900ms ease;
+}
+.frelia-scene canvas.pret { opacity: 1; }
+.frelia-scene::after {
+    /* Un voile sombre en bas, pour que le texte blanc reste bien lisible */
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.85) 0%, rgb(0 0 0 / 0.45) 45%, transparent 75%);
+    pointer-events: none;
+}
+
+.frelia-contenu {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: calc(var(--hauteur-nav) + 48px) var(--marge) clamp(48px, 9vh, 104px);
+    font-family: "Geist", "Helvetica Neue", Arial, sans-serif;
+}
+
+.frelia-logo { margin: 0 0 clamp(28px, 5vh, 56px); line-height: 0; }
+.frelia-logo img { width: min(78vw, 980px); height: auto; display: block; }
+
+.frelia-identite {
+    max-width: 58ch;
+    font-size: clamp(1.05rem, 0.95rem + 0.5vw, 1.4rem);
+    line-height: 1.5;
+    color: #fff;
+    text-wrap: pretty;
+}
+
+.frelia-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; margin-top: 36px; }
+
+.bouton-frelia {
+    display: inline-flex;
     align-items: center;
-    padding: 18px 0;
-    border-bottom: 1px solid var(--ligne);
+    border-radius: 999px;
+    padding: 1.05em 1.9em;
+    font-size: clamp(1rem, 0.9rem + 0.4vw, 1.2rem);
+    font-weight: 500;
+    background: #fff;
+    color: #000;
+    border: 1px solid #fff;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.service-lettre {
-    font-size: clamp(5rem, 13vw, 12rem);
-    font-weight: 900;
-    line-height: 0.85;
-    color: var(--encre);
-}
-.service.bientot .service-lettre { color: var(--ligne); }
-.service.bientot .service-nom { color: var(--gris); }
-.service-texte { max-width: 62ch; }
-.service-texte p { margin-bottom: 0.4em; }
-.service-statut { font-weight: 700; font-size: 0.85rem; }
-.service-nom { font-size: clamp(var(--t-1), 2.6vw, var(--t-3)); margin-bottom: 12px; }
+.bouton-frelia:visited { color: #000; }
+.bouton-frelia:hover { background: #000; color: #fff; }
 
-.tarifs-frelia {
-    list-style: none; margin: 0; padding: 0;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    border-top: 1.5px solid var(--encre);
-}
-.tarifs-frelia li { padding: 20px 24px 24px 0; border-bottom: 1px solid var(--ligne); }
-.tarifs-frelia li + li { padding-left: 24px; border-left: 1px solid var(--ligne); }
-.tarif-type { font-size: var(--t-1); margin-bottom: 14px; }
-.tarif-prix { font-size: clamp(1.75rem, 2.5vw, 2.6rem); font-weight: 800; font-stretch: 125%; line-height: 1; color: var(--lien); white-space: nowrap; }
-.tarif-des { display: block; font-size: 1rem; font-weight: 600; font-stretch: 100%; color: var(--gris); margin-bottom: 4px; }
-.tarif-detail { margin: 14px 0; }
-.tarif-maintenance { color: var(--gris); font-size: 0.8rem; }
+.lien-frelia, .lien-frelia:visited { color: #fff; font-size: 1.05rem; text-underline-offset: 0.25em; }
 
-.etapes-frelia { list-style: none; margin: 0; padding: 0; counter-reset: etape-frelia; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
-.etapes-frelia li { border-top: 3px solid var(--lien); padding-top: 16px; }
-.etapes-frelia h3 { font-size: var(--t-1); margin-bottom: 12px; display: flex; gap: 0.4em; }
-.etapes-frelia h3::before { counter-increment: etape-frelia; content: counter(etape-frelia); color: var(--lien); font-stretch: 100%; }
+/* Entrée de la page : le logo puis le texte montent doucement */
+@keyframes frelia-monte { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+.frelia-logo, .frelia-identite, .frelia-actions { animation: frelia-monte 900ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.frelia-identite { animation-delay: 140ms; }
+.frelia-actions { animation-delay: 260ms; }
+.vers-frelia .frelia-logo { animation-delay: 380ms; }
+.vers-frelia .frelia-identite { animation-delay: 520ms; }
+.vers-frelia .frelia-actions { animation-delay: 640ms; }
 
-.frelia-duo .titre-section { font-size: clamp(var(--t-2), 3.6vw, var(--t-4)); }
-.liste-concepts { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--encre); }
-.liste-concepts li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; padding: 12px 0; border-bottom: 1px solid var(--ligne); }
-.liste-concepts a { font-size: var(--t-1); font-weight: 800; font-stretch: 125%; }
-.liste-concepts .gris { font-size: 0.95rem; }
+/* La transition vers /frelia : un rideau noir monte depuis le bas.
+   En repartant, il continue vers le haut et découvre le site. */
+.vers-frelia .nav, .depuis-frelia .nav { view-transition-name: none; }
+.vers-frelia .barre-requete, .depuis-frelia .barre-requete { display: none; }
+
+.vers-frelia::view-transition-old(root) { animation: frelia-recule 800ms cubic-bezier(0.65, 0, 0.35, 1) both; }
+.vers-frelia::view-transition-new(root) { animation: frelia-rideau-monte 800ms cubic-bezier(0.65, 0, 0.35, 1) both; }
+.depuis-frelia::view-transition-old(root) { z-index: 2; animation: frelia-rideau-part 800ms cubic-bezier(0.65, 0, 0.35, 1) both; }
+.depuis-frelia::view-transition-new(root) { animation: frelia-avance 800ms cubic-bezier(0.65, 0, 0.35, 1) both; }
+
+@keyframes frelia-rideau-monte { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes frelia-rideau-part { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 100% 0); } }
+@keyframes frelia-recule { to { transform: scale(0.94) translateY(-3%); opacity: 0.5; } }
+@keyframes frelia-avance { from { transform: scale(0.96) translateY(3%); opacity: 0.5; } }
 
 /* ---------- Responsive ---------- */
 
@@ -984,9 +1050,6 @@ main { display: block; }
     .etape { min-height: 0; padding-bottom: 56px; }
     .auteur .texte-auteur, .auteur .langues, .colonne-gauche, .colonne-droite { grid-column: 1 / -1; }
     .requete-brute { position: static; }
-    .tarifs-frelia { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .tarifs-frelia li:nth-child(3) { padding-left: 0; border-left: 0; }
-    .etapes-frelia { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 760px) {
@@ -1003,11 +1066,6 @@ main { display: block; }
     .court-loisirs li { font-size: 1rem; font-stretch: 105%; }
     .langues .niveau { font-size: 0.85rem; }
     .nav-liens { gap: 14px; font-size: 0.95rem; }
-    .service { grid-template-columns: 76px minmax(0, 1fr); gap: 4px 16px; align-items: start; }
-    .service-lettre { font-size: 4.5rem; }
-    .service-nom { font-size: 1.35rem; font-stretch: 118%; overflow-wrap: anywhere; }
-    .tarifs-frelia, .etapes-frelia { grid-template-columns: minmax(0, 1fr); }
-    .tarifs-frelia li, .tarifs-frelia li + li { padding: 18px 0; border-left: 0; }
 }
 
 @media (max-width: 760px) {
