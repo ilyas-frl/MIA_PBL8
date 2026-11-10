@@ -917,6 +917,62 @@ main { display: block; }
 .graphe-legende { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; font-family: var(--mono); font-size: 0.78rem; color: var(--gris); margin-bottom: 8px; }
 .graphe-legende strong { color: var(--lien); }
 
+/* ---------- /frelia ---------- */
+
+.frelia-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: 32px; }
+.frelia-actions .bouton { text-decoration: none; }
+.frelia-actions .bouton:visited { color: var(--encre); }
+.frelia-actions .bouton:hover { color: var(--papier); }
+
+.frelia-bloc { margin-top: clamp(64px, 9vw, 140px); }
+
+.lettres-frelia { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--encre); }
+.service {
+    display: grid;
+    grid-template-columns: clamp(110px, 16vw, 230px) minmax(0, 1fr);
+    gap: 8px 40px;
+    align-items: center;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--ligne);
+}
+.service-lettre {
+    font-size: clamp(5rem, 13vw, 12rem);
+    font-weight: 900;
+    line-height: 0.85;
+    color: var(--encre);
+}
+.service.bientot .service-lettre { color: var(--ligne); }
+.service.bientot .service-nom { color: var(--gris); }
+.service-texte { max-width: 62ch; }
+.service-texte p { margin-bottom: 0.4em; }
+.service-statut { font-weight: 700; font-size: 0.85rem; }
+.service-nom { font-size: clamp(var(--t-1), 2.6vw, var(--t-3)); margin-bottom: 12px; }
+
+.tarifs-frelia {
+    list-style: none; margin: 0; padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1.5px solid var(--encre);
+}
+.tarifs-frelia li { padding: 20px 24px 24px 0; border-bottom: 1px solid var(--ligne); }
+.tarifs-frelia li + li { padding-left: 24px; border-left: 1px solid var(--ligne); }
+.tarif-type { font-size: var(--t-1); margin-bottom: 14px; }
+.tarif-prix { font-size: clamp(1.75rem, 2.5vw, 2.6rem); font-weight: 800; font-stretch: 125%; line-height: 1; color: var(--lien); white-space: nowrap; }
+.tarif-des { display: block; font-size: 1rem; font-weight: 600; font-stretch: 100%; color: var(--gris); margin-bottom: 4px; }
+.tarif-detail { margin: 14px 0; }
+.tarif-maintenance { color: var(--gris); font-size: 0.8rem; }
+
+.etapes-frelia { list-style: none; margin: 0; padding: 0; counter-reset: etape-frelia; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.etapes-frelia li { border-top: 3px solid var(--lien); padding-top: 16px; }
+.etapes-frelia h3 { font-size: var(--t-1); margin-bottom: 12px; display: flex; gap: 0.4em; }
+.etapes-frelia h3::before { counter-increment: etape-frelia; content: counter(etape-frelia); color: var(--lien); font-stretch: 100%; }
+
+.frelia-duo .titre-section { font-size: clamp(var(--t-2), 3.6vw, var(--t-4)); }
+.liste-concepts { list-style: none; margin: 0; padding: 0; border-top: 1.5px solid var(--encre); }
+.liste-concepts li { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 16px; padding: 12px 0; border-bottom: 1px solid var(--ligne); }
+.liste-concepts a { font-size: var(--t-1); font-weight: 800; font-stretch: 125%; }
+.liste-concepts .gris { font-size: 0.95rem; }
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 980px) {
@@ -928,6 +984,9 @@ main { display: block; }
     .etape { min-height: 0; padding-bottom: 56px; }
     .auteur .texte-auteur, .auteur .langues, .colonne-gauche, .colonne-droite { grid-column: 1 / -1; }
     .requete-brute { position: static; }
+    .tarifs-frelia { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .tarifs-frelia li:nth-child(3) { padding-left: 0; border-left: 0; }
+    .etapes-frelia { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 760px) {
@@ -943,6 +1002,12 @@ main { display: block; }
     .court-loisirs { top: 22%; bottom: 22%; left: 6%; right: 6%; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
     .court-loisirs li { font-size: 1rem; font-stretch: 105%; }
     .langues .niveau { font-size: 0.85rem; }
+    .nav-liens { gap: 14px; font-size: 0.95rem; }
+    .service { grid-template-columns: 76px minmax(0, 1fr); gap: 4px 16px; align-items: start; }
+    .service-lettre { font-size: 4.5rem; }
+    .service-nom { font-size: 1.35rem; font-stretch: 118%; overflow-wrap: anywhere; }
+    .tarifs-frelia, .etapes-frelia { grid-template-columns: minmax(0, 1fr); }
+    .tarifs-frelia li, .tarifs-frelia li + li { padding: 18px 0; border-left: 0; }
 }
 
 @media (max-width: 760px) {
