@@ -1,10 +1,29 @@
 {% extends "base.html" %}
 {% block titre %}Loisirs{% endblock %}
+{% block description %}Les loisirs d'Ilyas, dessinés sur un court de tennis, avec une balle à frapper du bout de la souris.{% endblock %}
 {% block contenu %}
-    <h1>Mes loisirs</h1>
-    <ul>
-    {% for loisir in loisirs %}
-        <li>{{ loisir }}</li>
-    {% endfor %}
-    </ul>
+<div class="page">
+    <header class="entete-page">
+        <h1 class="affiche elastique">Mes loisirs</h1>
+        <p class="chapo">La liste vient de Python. Le court, lui, est pour vous : passez la souris ou le doigt sur la balle pour la frapper.</p>
+    </header>
+
+    <div class="court" data-court>
+        <div class="court-lignes" aria-hidden="true"><div class="court-service"></div></div>
+        <ul class="court-loisirs">
+        {% for loisir in loisirs %}
+            <li>{{ loisir }}</li>
+        {% endfor %}
+        </ul>
+        <canvas data-balle aria-hidden="true"></canvas>
+    </div>
+    <p class="court-score" aria-live="polite">
+        <span>Échanges : <strong data-echanges>0</strong></span>
+        <span>Record de la session : <strong data-record>0</strong></span>
+        <span class="gris" data-consigne>L'échange s'arrête si la balle rebondit deux fois.</span>
+    </p>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/loisirs.js" defer></script>
 {% endblock %}

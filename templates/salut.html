@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block titre %}Salut {{ prenom }}{% endblock %}
+{% block description %}La réponse du formulaire : ce que le serveur a reçu, par quelle méthode, et où les données ont voyagé.{% endblock %}
+{% block contenu %}
+<div class="page">
+    <header class="entete-page">
+        <h1 class="salut-titre" style="color: {{ couleur }}">Bonjour {{ prenom }}, qui vient de {{ ville }} !</h1>
+        <p class="chapo">(reçu en {{ methode }}, en {{ nom_couleur|lower }})</p>
+    </header>
+
+    <dl class="schema-recu">
+        <div><dt>Méthode reçue</dt><dd>{{ methode }}</dd></div>
+        <div><dt>Les données ont voyagé dans</dt><dd>{{ emplacement }}</dd></div>
+        <div><dt>{{ "Corps de la requête (reconstitué)" if methode == "POST" else "Ce qui suit le « ? »" }}</dt><dd>{{ brut or "(vide)" }}</dd></div>
+    </dl>
+
+    {% if methode == "POST" %}
+    <aside class="encart" style="margin-top:40px">
+        <p>Appuyez sur <kbd>F5</kbd> : votre navigateur demande s'il doit renvoyer le formulaire. Recharger une page POST, c'est renvoyer les données. Sur un site marchand, ça pourrait passer la commande deux fois.</p>
+    </aside>
+    {% else %}
+    <aside class="encart" style="margin-top:40px">
+        <p>Regardez la barre d'adresse : vos réponses y sont écrites. Vous pouvez copier cette URL, l'envoyer à quelqu'un ou la mettre en favori, elle redonnera la même page.</p>
+    </aside>
+    {% endif %}
+
+    <p style="margin-top:32px"><a href="/formulaire">Revenir au formulaire</a></p>
+</div>
+{% endblock %}

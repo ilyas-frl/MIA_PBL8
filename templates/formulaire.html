@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block titre %}Formulaire{% endblock %}
+{% block description %}Un formulaire en GET ou en POST, et la requête HTTP brute qui se construit pendant que vous tapez.{% endblock %}
+{% block contenu %}
+<div class="page">
+    <header class="entete-page">
+        <h1 class="affiche elastique">Faisons connaissance</h1>
+        <p class="chapo">Remplissez le formulaire : à droite, la requête que votre navigateur va envoyer se construit pendant que vous tapez.</p>
+    </header>
+
+    <div class="formulaire-grille">
+        <form class="formulaire-champs" action="/salut" method="get" data-formulaire>
+            <div>
+                <p class="gris" id="legende-methode" style="margin-bottom:8px">Méthode d'envoi</p>
+                <div class="interrupteur" role="group" aria-labelledby="legende-methode">
+                    <button type="button" aria-pressed="true" data-choix-methode="get">GET</button>
+                    <button type="button" aria-pressed="false" data-choix-methode="post">POST</button>
+                </div>
+            </div>
+            <div class="champ">
+                <label for="champ-prenom">Votre prénom</label>
+                <input id="champ-prenom" type="text" name="prenom" autocomplete="given-name">
+            </div>
+            <div class="champ">
+                <label for="champ-ville">Votre ville</label>
+                <input id="champ-ville" type="text" name="ville" autocomplete="address-level2">
+            </div>
+            <div class="champ">
+                <label for="champ-couleur">Votre couleur préférée</label>
+                <select id="champ-couleur" name="couleur">
+                    {% for valeur, nom in couleurs.items() %}
+                    <option value="{{ valeur }}">{{ nom }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div><button class="bouton" type="submit">Envoyer</button></div>
+        </form>
+
+        <div class="requete-brute">
+            <p class="gris" style="margin-bottom:8px">La requête qui partira</p>
+            <pre class="code" aria-live="polite"><code data-requete-brute>GET /salut?prenom=&amp;ville=&amp;couleur=tomato HTTP/1.1
+Host: {{ request.host }}</code></pre>
+            <p class="legende" data-legende-requete>En GET, les données voyagent dans l'URL : tout le monde les voit dans la barre d'adresse.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/formulaire.js" defer></script>
+{% endblock %}

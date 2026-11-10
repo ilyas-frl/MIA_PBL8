@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block titre %}Accès refusé (403){% endblock %}
+{% block description %}Erreur 403 : la page existe, mais le serveur refuse de la donner.{% endblock %}
+{% block contenu %}
+<div class="page">
+    <header class="entete-page">
+        <p class="statut-geant" data-famille="erreur">403 Forbidden</p>
+        <h1 class="affiche elastique">Accès refusé</h1>
+        <p class="chapo">La page <span class="mono">{{ request.path }}</span> existe bien, mais le serveur refuse de vous la donner.</p>
+    </header>
+
+    <div class="grille">
+        <div class="colonne-gauche texte">
+            <p>Un code qui commence par <strong>4</strong> veut dire que c'est la demande qui pose problème : une page qui n'existe pas (404), une demande mal formée (400) ou, ici, un accès interdit (403). Le serveur, lui, fonctionne parfaitement.</p>
+            <p>Un code qui commence par <strong>5</strong> veut dire l'inverse : la demande était correcte, mais le serveur a planté (500). Là, c'est au développeur de réparer.</p>
+            <p><a href="/">Retour à l'accueil</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

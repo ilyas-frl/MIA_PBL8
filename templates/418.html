@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block titre %}Je suis une théière (418){% endblock %}
+{% block description %}Erreur 418 : le code HTTP le plus inutile du Web, né d'un poisson d'avril en 1998.{% endblock %}
+{% block contenu %}
+<div class="page">
+    <header class="entete-page">
+        <p class="statut-geant" data-famille="erreur">418 I'm a teapot</p>
+        <h1 class="affiche elastique">Je suis une théière</h1>
+        <p class="chapo">Vous avez demandé du café à une théière. Elle refuse, poliment.</p>
+    </header>
+
+    <div class="grille">
+        <div class="colonne-gauche texte">
+            <p>Le 1er avril 1998, Larry Masinter publie la RFC 2324, un faux standard pour piloter des cafetières par Internet : le « Hyper Text Coffee Pot Control Protocol ». Il y prévoit un code de réponse pour les théières à qui l'on demande du café : <span class="mono">418 I'm a teapot</span>.</p>
+            <p>C'était une blague, mais les développeurs l'ont adoptée et beaucoup de logiciels la reconnaissent. En 2017, une proposition de le retirer de plusieurs outils a déclenché une campagne « Save 418 ». Le code est resté, et la norme HTTP actuelle (RFC 9110) le réserve pour qu'aucun vrai code ne prenne sa place.</p>
+            <p>Flask, lui, le connaît très bien : <span class="mono">abort(418)</span> suffit.</p>
+            <p><a href="/">Retour à l'accueil</a></p>
+        </div>
+        <div class="colonne-droite">
+            <svg class="theiere" viewBox="0 0 240 200" role="img" aria-label="Une théière">
+                <g fill="none" stroke="#000" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+                    <path d="M62 82 C62 52 178 52 178 82 L186 150 C186 176 54 176 54 150 Z" fill="#FFFFFF"/>
+                    <path d="M98 56 C98 40 142 40 142 56"/>
+                    <circle cx="120" cy="36" r="7" fill="#0000EE" stroke="none"/>
+                    <path d="M58 98 C20 92 14 136 52 140"/>
+                    <path d="M182 104 L222 76 L214 92 L188 138"/>
+                    <path d="M76 118 H164" stroke="#0000EE"/>
+                </g>
+            </svg>
+        </div>
+    </div>
+</div>
+{% endblock %}

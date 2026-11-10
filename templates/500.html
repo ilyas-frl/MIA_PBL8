@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block titre %}Erreur du serveur (500){% endblock %}
+{% block description %}Erreur 500 : le serveur a rencontré un problème.{% endblock %}
+{% block contenu %}
+<div class="page">
+    <header class="entete-page">
+        <p class="statut-geant" data-famille="erreur">500 Internal Server Error</p>
+        <h1 class="affiche">Le serveur a trébuché</h1>
+        <p class="chapo">Votre demande était correcte, c'est le code Python qui a planté. L'erreur est notée dans l'Error log de PythonAnywhere.</p>
+    </header>
+    <p><a href="/">Retour à l'accueil</a></p>
+</div>
+{% endblock %}

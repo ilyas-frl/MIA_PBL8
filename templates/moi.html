@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block titre %}Ce que je sais de vous{% endblock %}
+{% block description %}Tout ce que votre navigateur dit au serveur sans que vous ayez rien rempli, et ce qu'une page peut deviner en plus.{% endblock %}
+{% block contenu %}
+<div class="page">
+    <header class="entete-page">
+        <h1 class="affiche elastique">Ce que je sais de vous</h1>
+        <p class="chapo">Vous n'avez rien rempli. Pourtant, voici ce que cette page a appris en s'affichant.</p>
+    </header>
+
+    <div class="moi-grille">
+        <section aria-labelledby="titre-serveur">
+            <h2 id="titre-serveur">Ce que votre navigateur a dit au serveur</h2>
+            <dl class="fiche">
+                <div><dt>Votre adresse IP</dt><dd>{{ ip }}</dd></div>
+                <div><dt>Votre navigateur</dt><dd>{{ navigateur }}</dd></div>
+                <div><dt>Vos langues</dt><dd>{{ langues }}</dd></div>
+            </dl>
+            <h3 style="font-size:var(--t-1); margin:32px 0 12px">Tous les en-têtes reçus</h3>
+            <dl class="fiche entetes">
+            {% for nom, valeur in entetes %}
+                <div><dt>{{ nom }}</dt><dd>{{ valeur }}</dd></div>
+            {% endfor %}
+            </dl>
+            <p class="gris" style="margin-top:12px">Lu en Python par <span class="mono">request.headers</span>.</p>
+        </section>
+
+        <section aria-labelledby="titre-navigateur">
+            <h2 id="titre-navigateur">Ce que cette page peut deviner en plus</h2>
+            <dl class="fiche" data-devinettes>
+                <div><dt>JavaScript</dt><dd>désactivé : rien de plus à deviner</dd></div>
+            </dl>
+            <p class="gris" style="margin-top:12px">Lu en JavaScript, dans votre navigateur. Ces informations ne sont pas envoyées au serveur.</p>
+        </section>
+    </div>
+
+    <aside class="encart" style="margin-top:48px">
+        <p>Ce site n'enregistre rien de tout ça. Mais le serveur de PythonAnywhere, lui, note chaque visite dans son Access log : l'heure, l'adresse IP, la page demandée, le code de statut et le navigateur. C'est le cas de presque tous les serveurs.</p>
+    </aside>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/moi.js" defer></script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block titre %}Horloge{% endblock %}
+{% block description %}Une horloge alimentée par l'API /api/heure : une requête par seconde, sans recharger la page, avec le temps aller-retour de chacune.{% endblock %}
+{% block contenu %}
+<div class="page">
+    <header class="entete-page">
+        <h1 class="visuellement-cache">Il est <span id="heure-texte">…</span></h1>
+        <p class="horloge-heure" id="heure" aria-hidden="true">--:--:--</p>
+        <p class="chapo" id="message">Toutes les secondes, cette page demande l'heure au serveur.</p>
+    </header>
+
+    <div class="horloge-grille">
+        <div class="graphe-boite">
+            <div class="graphe-legende">
+                <span>Aller-retour de chaque appel à /api/heure, 60 dernières secondes</span>
+                <span>dernier : <strong data-dernier-aller-retour>…</strong> · Flask : <strong data-dernier-flask>…</strong></span>
+            </div>
+            <canvas data-graphe aria-label="Graphe du temps aller-retour des requêtes" role="img"></canvas>
+        </div>
+        <div>
+            <p class="gris" style="margin-bottom:8px">Le dernier JSON reçu</p>
+            <pre class="code"><code data-dernier-json>…</code></pre>
+            <p class="gris" style="margin-top:12px">La page ne se recharge jamais : seul ce petit JSON voyage. Le compteur du pied de page le prouve.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/horloge.js" defer></script>
+{% endblock %}

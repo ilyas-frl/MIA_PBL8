@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block titre %}Paquet perdu (404){% endblock %}
+{% block description %}Erreur 404 : aucune route ne correspond à cette adresse.{% endblock %}
+{% block contenu %}
+<div class="page">
+    <header class="entete-page">
+        <p class="statut-geant" data-famille="erreur">404 Not Found</p>
+        <h1 class="affiche elastique">Paquet perdu</h1>
+        <p class="chapo">Le serveur a bien reçu votre demande pour <span class="mono">{{ request.path }}</span>, mais aucune route de <span class="mono">flask_app.py</span> ne correspond.</p>
+    </header>
+
+    <div class="traceroute">
+        <p class="gris" style="margin-bottom:8px">Le trajet de votre demande, avec les vraies mesures de cette visite</p>
+        <pre class="code"><code data-traceroute>traceroute {{ request.host }}{{ request.path }}</code></pre>
+    </div>
+
+    <section style="margin-top:56px" aria-labelledby="titre-destinations">
+        <h2 class="titre-section" id="titre-destinations">Destinations possibles</h2>
+        <p class="texte gris">Les routes de ce site, lues en direct dans <span class="mono">app.url_map</span> par l'API <span class="mono">/api/routes</span> :</p>
+        <ul class="destinations" data-destinations>
+            <li><a href="/">/</a></li>
+        </ul>
+    </section>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/introuvable.js" defer></script>
+{% endblock %}

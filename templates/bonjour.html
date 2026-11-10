@@ -1,5 +1,28 @@
 {% extends "base.html" %}
-{% block titre %}Bonjour{% endblock %}
+{% block titre %}Bonjour {{ prenom }}{% endblock %}
+{% block description %}Une information dans le chemin de l'URL : Flask range ce qui suit /bonjour/ dans la variable prenom.{% endblock %}
 {% block contenu %}
-    <h1>Bonjour {{ prenom }} !</h1>
+<div class="page">
+    <header class="entete-page">
+        <h1 class="bonjour-titre elastique">Bonjour {{ prenom }}</h1>
+    </header>
+
+    <p class="url-vivante"><span class="gris">{{ request.host }}</span>/bonjour/<span class="variable">{{ prenom }}</span></p>
+    <p class="texte gris" style="margin-top:12px">La partie en bleu est variable : la route <span class="mono">@app.get("/bonjour/&lt;path:prenom&gt;")</span> la range dans la variable <span class="mono">prenom</span>.</p>
+
+    <form class="ligne-form" data-form-bonjour style="margin:40px 0">
+        <div class="champ">
+            <label for="nouveau-prenom">Un autre prénom</label>
+            <input id="nouveau-prenom" name="prenom" type="text" value="{{ prenom }}" autocomplete="given-name" required>
+        </div>
+        <button class="bouton" type="submit">Aller à /bonjour/…</button>
+    </form>
+
+    <aside class="encart">
+        <p>Essayez <a class="mono" href="/bonjour/%3Cb%3Etest%3C/b%3E">/bonjour/&lt;b&gt;test&lt;/b&gt;</a> : Jinja échappe le HTML. La balise s'affiche en texte au lieu de mettre le mot en gras. Faites <kbd>Ctrl</kbd> + <kbd>U</kbd> pour voir <span class="mono">&amp;lt;b&amp;gt;</span> dans le code source.</p>
+    </aside>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/bonjour.js" defer></script>
 {% endblock %}

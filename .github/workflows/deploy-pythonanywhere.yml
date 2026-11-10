@@ -61,6 +61,8 @@ jobs:
               *.pyc|.DS_Store) continue ;;
               # Les consignes de l'atelier n'ont pas besoin d'être sur le serveur
               exercices/*|*.md) continue ;;
+              # Les tests et les fichiers de travail restent sur l'ordinateur
+              test_*.py|package.json|package-lock.json) continue ;;
             esac
 
             remote_path="${TARGET_DIR}/${rel}"

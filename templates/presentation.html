@@ -1,13 +1,57 @@
 {% extends "base.html" %}
 {% block titre %}Présentation{% endblock %}
+{% block description %}Ilyas Afryad, élève ingénieur à l'Icam (Bachelor International, campus Grand Paris Sud) et fondateur de Frelia : parcours, langues et loisirs.{% endblock %}
 {% block contenu %}
-    <h1>{{ prenom }} {{ nom }}</h1>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg" width="100" alt="Logo Python">
-    <p>Je suis étudiant à l'<strong>Icam</strong> et je découvre le fonctionnement du Web.</p>
-    <h2>Ce que j'aime</h2>
-    <ul>
-    {% for loisir in loisirs %}
-        <li>{{ loisir }}</li>
-    {% endfor %}
-    </ul>
+<div class="page">
+    <header class="entete-page">
+        <h1 class="affiche elastique">{{ prenom }} {{ nom }}</h1>
+        <p class="chapo">Élève ingénieur à l'Icam. Je construis des sites pour des commerces, des agents IA, et ce serveur.</p>
+    </header>
+
+    <div class="grille bloc-presentation">
+        <section class="colonne-gauche" aria-labelledby="titre-parcours">
+            <h2 id="titre-parcours">Parcours</h2>
+            <ul class="parcours">
+                <li>
+                    <span class="quand">Icam</span>
+                    <span><strong>Bachelor International</strong>, campus Grand Paris Sud. Une formation d'ingénieur par projets : électronique, matériaux, mécanique, et maintenant le Web.</span>
+                </li>
+                <li>
+                    <span class="quand">Frelia</span>
+                    <span><strong>Mon agence web.</strong> Des sites vitrines pour les commerces, du référencement pour être cité par les IA, et un état des lieux gratuit. <a href="https://frelia.fr">frelia.fr</a></span>
+                </li>
+                <li>
+                    <span class="quand">À côté</span>
+                    <span><strong>Des agents IA</strong> qui préparent mes journées, un assistant vocal en construction et un jeu Roblox en Luau.</span>
+                </li>
+            </ul>
+        </section>
+
+        <section class="colonne-droite" aria-labelledby="titre-loisirs">
+            <h2 id="titre-loisirs">Ce que j'aime</h2>
+            <ul class="liste-simple">
+            {% for loisir in loisirs %}
+                <li>{{ loisir }}</li>
+            {% endfor %}
+            </ul>
+            <p class="gris" style="margin-top:12px">Neuf ans de tennis. <a href="/loisirs">Venez faire un échange</a>.</p>
+        </section>
+
+        <section class="colonne-gauche" aria-labelledby="titre-langues">
+            <h2 id="titre-langues">Langues</h2>
+            <ul class="langues">
+                {% for langue in langues %}
+                <li>
+                    <span class="salut" lang="{{ langue.code }}">{{ langue.salut }}</span>
+                    <span class="niveau">{{ langue.langue }}, {{ langue.niveau }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <aside class="colonne-droite encart">
+            <p>Cette page est fabriquée par la fonction <span class="mono">presentation()</span> : le prénom, le nom, les loisirs et les langues sont des variables Python remplies par Jinja. Appuyez sur <kbd>C</kbd> pour le voir.</p>
+        </aside>
+    </div>
+</div>
 {% endblock %}

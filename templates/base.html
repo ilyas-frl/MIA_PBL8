@@ -3,17 +3,88 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block titre %}Mon site{% endblock %}</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>{% block titre %}Mon site{% endblock %} · Ilyas Afryad</title>
+    <meta name="description" content="{% block description %}Le site d'Ilyas Afryad : un serveur Flask qui montre en direct ce qui se passe quand il vous répond.{% endblock %}">
+    <meta name="color-scheme" content="light">
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+    <link rel="preload" href="/static/fonts/anybody-latin-standard-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/static/css/site.css">
+    <script>
+        // Transition entre les pages : on allume la barre bleue juste avant le premier affichage
+        addEventListener("pagereveal", function (e) {
+            if (!e.viewTransition) return;
+            var html = document.documentElement;
+            html.classList.add("vt-arrivee");
+            e.viewTransition.finished.finally(function () { html.classList.remove("vt-arrivee"); });
+        });
+    </script>
+    {% block tete %}{% endblock %}
 </head>
-<body>
-    <nav>
-        <a href="/">Accueil</a>
-        <a href="/presentation">Présentation</a>
-        <a href="/loisirs">Loisirs</a>
-    </nav>
-    <main>
+<body class="{% block classe_page %}{% endblock %}"
+      data-template="{{ g.template }}"
+      data-endpoint="{{ request.endpoint or '' }}"
+      data-statut="{{ statut|default(200) }}"
+      data-methode="{{ request.method }}">
+    <a class="evitement" href="#contenu">Aller au contenu</a>
+    <div class="barre-requete" aria-hidden="true"></div>
+
+    <header class="nav">
+        <a class="nav-nom" href="/">Ilyas Afryad</a>
+        <nav class="nav-liens" aria-label="Navigation principale">
+            <a href="/" {% if request.path == "/" %}aria-current="page"{% endif %}>Accueil</a>
+            <a href="/presentation" {% if request.path == "/presentation" %}aria-current="page"{% endif %}>Présentation</a>
+            <a href="/loisirs" {% if request.path == "/loisirs" %}aria-current="page"{% endif %}>Loisirs</a>
+            <a href="/#labo">Labo</a>
+        </nav>
+        <button class="nav-coulisses" type="button" data-ouvrir-coulisses aria-haspopup="dialog" aria-controls="coulisses">
+            Coulisses <kbd>C</kbd>
+        </button>
+    </header>
+
+    <main id="contenu">
         {% block contenu %}{% endblock %}
     </main>
+
+    <footer class="pied">
+        <p>Fait main avec Flask et du WebGL écrit à la main.
+            <span data-compte-requetes>Cette page a fait une requête vers {{ request.host }}.</span></p>
+        <p>Appuyez sur <kbd>C</kbd> pour voir les coulisses.</p>
+    </footer>
+
+    <button class="hud" type="button" id="hud" data-ouvrir-coulisses="reponse" aria-label="Mesures de la requête : ouvrir la réponse HTTP dans les coulisses">
+        <span class="hud-statut" data-hud-statut>{{ statut|default(200) }}</span>
+        <span data-hud-detail>Flask</span>
+    </button>
+
+    <dialog class="coulisses" id="coulisses" aria-labelledby="coulisses-titre">
+        <div class="coulisses-tete">
+            <h2 id="coulisses-titre">Les coulisses de <span class="mono">{{ request.path }}</span></h2>
+            <button class="bouton" type="button" data-fermer-coulisses>Fermer <kbd>Échap</kbd></button>
+        </div>
+        <div class="onglets" role="tablist" aria-label="Ce qui a fabriqué cette page">
+            <button role="tab" type="button" id="onglet-template" aria-controls="panneau-template" aria-selected="true" data-onglet="template">Le template</button>
+            <button role="tab" type="button" id="onglet-route" aria-controls="panneau-route" aria-selected="false" tabindex="-1" data-onglet="route">La route Python</button>
+            <button role="tab" type="button" id="onglet-reponse" aria-controls="panneau-reponse" aria-selected="false" tabindex="-1" data-onglet="reponse">La réponse HTTP</button>
+        </div>
+        <div class="coulisses-corps">
+            <section role="tabpanel" id="panneau-template" aria-labelledby="onglet-template" tabindex="0">
+                <p class="coulisses-intro">Le fichier <span class="mono" data-nom-template>{{ g.template }}</span> tel qu'il est sur le serveur, avant que Jinja remplace les <span class="mono">{{ '{{ }}' }}</span>.
+                    <button class="lien-bouton" type="button" data-voir-base>Voir base.html, dont il hérite</button></p>
+                <pre class="code"><code data-code-template>Chargement…</code></pre>
+            </section>
+            <section role="tabpanel" id="panneau-route" aria-labelledby="onglet-route" tabindex="0" hidden>
+                <p class="coulisses-intro">La fonction de <span class="mono">flask_app.py</span> que Flask a exécutée pour répondre.</p>
+                <pre class="code"><code data-code-route></code></pre>
+            </section>
+            <section role="tabpanel" id="panneau-reponse" aria-labelledby="onglet-reponse" tabindex="0" hidden>
+                <p class="coulisses-intro" data-intro-reponse>La ligne de statut et les en-têtes, rejoués à l'instant avec une requête <span class="mono">HEAD</span> (la même adresse, sans le corps).</p>
+                <pre class="code"><code data-code-reponse>Chargement…</code></pre>
+            </section>
+        </div>
+    </dialog>
+
+    <script type="application/json" id="donnees-page">{{ {"code_route": code_route}|tojson }}</script>
+    <script src="/static/js/coeur.js" defer></script>
+    {% block scripts %}{% endblock %}
 </body>
 </html>

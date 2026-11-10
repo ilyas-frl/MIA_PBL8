@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block titre %}Calcul{% endblock %}
+{% block description %}Des paramètres après le « ? » : modifiez a, b et l'opération, l'URL se reconstruit et le serveur répond en direct.{% endblock %}
+{% block contenu %}
+<div class="page">
+    <header class="entete-page">
+        <h1 class="affiche elastique">Calcul</h1>
+        <p class="chapo">Trois paramètres après le « ? ». Changez-les : l'URL se reconstruit et le serveur recalcule à chaque modification.</p>
+    </header>
+
+    <p class="url-vivante" data-url-calcul><span class="gris">{{ request.host }}</span>/calcul?a=<span class="variable">{{ a }}</span>&amp;b=<span class="variable">{{ b }}</span>&amp;op=<span class="variable">{{ op }}</span></p>
+
+    <form class="calcul-puces" action="/calcul" method="get" data-form-calcul style="margin-top:32px">
+        <div class="puce">
+            <label for="champ-a">a</label>
+            <input id="champ-a" name="a" type="text" inputmode="numeric" value="{{ a }}" autocomplete="off">
+        </div>
+        <div class="puce">
+            <label for="champ-op">op</label>
+            <select id="champ-op" name="op">
+                {% for nom, (symbole, fonction) in operations.items() %}
+                <option value="{{ nom }}" {% if nom == op %}selected{% endif %}>{{ nom }} ({{ symbole }})</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="puce">
+            <label for="champ-b">b</label>
+            <input id="champ-b" name="b" type="text" inputmode="numeric" value="{{ b }}" autocomplete="off">
+        </div>
+        <button class="bouton" type="submit" data-bouton-envoyer>Calculer</button>
+    </form>
+
+    <div class="calcul-reponse" aria-live="polite">
+        {% if erreur %}
+        <p class="calcul-resultat erreur" data-resultat>Erreur 400 : {{ erreur }}</p>
+        {% else %}
+        <p class="calcul-resultat" data-resultat>{{ calcul.a }} {{ calcul.symbole }} {{ calcul.b }} = {{ calcul.resultat }}</p>
+        {% endif %}
+        <p class="mono gris" data-detail-requete>Réponse fabriquée par le serveur au chargement de la page.</p>
+    </div>
+
+    <aside class="encart" style="margin-top:40px">
+        <p>Chaque modification envoie une requête à <span class="mono">/api/calcul</span>, qui répond en JSON. Regardez le compteur en bas à droite : il affiche chacune d'elles. Une lettre à la place d'un nombre, ou une division par zéro, et le serveur répond <span class="mono">400 Bad Request</span>.</p>
+    </aside>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/calcul.js" defer></script>
+{% endblock %}

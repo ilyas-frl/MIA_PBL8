@@ -1,14 +1,147 @@
 {% extends "base.html" %}
 {% block titre %}Accueil{% endblock %}
+{% block description %}Ce site s'observe pendant qu'il vous répond : la vraie requête qui vient d'afficher la page, décortiquée étape par étape. Par Ilyas Afryad, élève ingénieur à l'Icam.{% endblock %}
+{% block classe_page %}page-accueil{% endblock %}
 {% block contenu %}
-    <h1>Bienvenue sur mon site !</h1>
-    <p>Tranquille mon frère, bienvenue sur le site d'Ilyas.</p>
-    <p>Ce site me sert à découvrir le fonctionnement du Web.</p>
-    <p>Un lien vers un autre site : <a href="https://fr.wikipedia.org/wiki/World_Wide_Web">l'histoire du Web</a>.</p>
 
-    <h2>Les petites expériences</h2>
-    <ul>
-        <li><a href="/bonjour/Ilyas">/bonjour/Ilyas</a> : une information dans le chemin</li>
-        <li><a href="/calcul?a=6&b=3&op=fois">/calcul?a=6&amp;b=3&amp;op=fois</a> : des paramètres d'URL</li>
+<section class="hero" id="hero" aria-labelledby="hero-titre">
+    <div class="hero-scene">
+        <canvas id="globe" aria-hidden="true"></canvas>
+        <div class="hero-repli" aria-hidden="true">ILYAS</div>
+        <div class="hero-texte">
+            <div class="hero-etape" data-hero-etape="1">
+                <h1 id="hero-titre">Ce site s'observe pendant qu'il vous répond.</h1>
+                <p class="ligne-requete" data-ligne-requete>GET {{ request.path }}</p>
+            </div>
+            <div class="hero-etape" data-hero-etape="2" data-cache="oui">
+                <p class="hero-presentation">Ilyas Afryad, élève ingénieur à l'Icam. Je construis des sites, des agents IA et ce serveur.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="page voyage" id="voyage">
+    <header class="voyage-entete">
+        <h2>Le voyage de la requête qui vient d'afficher cette page</h2>
+        <p class="chapo">Toutes les mesures ci-dessous sont les vôtres, prises par votre navigateur pendant cette visite.</p>
+    </header>
+
+    <div class="voyage-grille">
+        <div class="cascade-boite" aria-label="Cascade des temps de la requête">
+            <div class="cascade-titre"><span data-cascade-url>GET {{ request.path }}</span><span data-cascade-total></span></div>
+            <ol class="cascade" data-cascade></ol>
+            <p class="cascade-legende">Chaque barre est une étape de la requête, à l'échelle de son vrai temps.</p>
+        </div>
+
+        <ol class="etapes">
+            <li class="etape" data-etape="adresse">
+                <h3>Vous avez demandé une adresse</h3>
+                <p class="url-decoupee" data-url-decoupee></p>
+                <p class="url-explication" data-url-explication aria-live="polite">Survolez un morceau de l'adresse pour savoir à quoi il sert.</p>
+                <p data-redirection hidden>Vous êtes passé par une redirection 302 avant d'arriver ici : le serveur a répondu « va voir à l'adresse / », et votre navigateur a refait la demande tout seul.</p>
+            </li>
+            <li class="etape" data-etape="dns">
+                <h3>Le nom est devenu une adresse IP</h3>
+                <p class="mesure" data-mesure-dns>…</p>
+                <p>Les ordinateurs ne connaissent pas les noms comme <span class="mono">{{ request.host }}</span>. Votre navigateur a demandé à un annuaire, le DNS, l'adresse IP qui correspond.</p>
+            </li>
+            <li class="etape" data-etape="connexion">
+                <h3>Une connexion chiffrée s'est ouverte</h3>
+                <p class="mesure" data-mesure-connexion>…</p>
+                <p data-detail-connexion></p>
+            </li>
+            <li class="etape" data-etape="flask">
+                <h3>Flask a choisi une fonction</h3>
+                <p>Flask a lu le chemin <span class="mono">{{ request.path }}</span>, a trouvé la route qui lui correspond et a exécuté cette fonction de <span class="mono">flask_app.py</span> :</p>
+                <pre class="code"><code data-code-accueil></code></pre>
+                <p class="mesure" data-mesure-flask>…</p>
+            </li>
+            <li class="etape" data-etape="reponse">
+                <h3>La réponse est revenue</h3>
+                <p class="mesure" data-mesure-reponse>…</p>
+                <p data-detail-reponse></p>
+                <pre class="code"><code data-entetes-reponse>Chargement des en-têtes…</code></pre>
+            </li>
+            <li class="etape" data-etape="rendu">
+                <h3>Votre navigateur l'a dessinée</h3>
+                <p class="mesure" data-mesure-rendu>…</p>
+                <p data-detail-rendu>Il a lu le HTML, puis demandé chaque fichier dont la page avait besoin :</p>
+                <ul class="liste-fichiers" data-liste-fichiers></ul>
+            </li>
+        </ol>
+    </div>
+</div>
+
+<section class="page auteur" aria-labelledby="auteur-titre">
+    <div class="grille">
+        <div class="texte-auteur">
+            <h2 class="titre-section" id="auteur-titre">L'auteur</h2>
+            <p>Je m'appelle Ilyas Afryad, je suis élève ingénieur à l'Icam. Je construis des sites pour des commerces, des agents IA qui travaillent pour moi, et ce serveur.</p>
+            <p>À côté, neuf ans de tennis.</p>
+            <p><a href="/presentation">La présentation complète</a></p>
+        </div>
+        <ul class="langues" aria-label="Les langues que je parle">
+            {% for langue in langues %}
+            <li>
+                <span class="salut" lang="{{ langue.code }}">{{ langue.salut }}</span>
+                <span class="niveau">{{ langue.langue }}, {{ langue.niveau }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+
+<section class="page projets" aria-labelledby="projets-titre">
+    <h2 class="titre-section" id="projets-titre">Projets</h2>
+    <p class="texte gris">Chaque projet a le code de statut HTTP qui dit où il en est. Cliquez sur un code pour savoir ce qu'il veut dire.</p>
+    <ul class="liste-projets">
+        {% for projet in projets %}
+        <li class="projet">
+            <button class="projet-statut" type="button" aria-expanded="false" aria-controls="explication-{{ loop.index }}"
+                    data-famille="{{ 'info' if projet.statut < 200 else 'succes' }}">{{ projet.statut }} {{ projet.texte_statut }}</button>
+            <h3 class="projet-nom">
+                {% if projet.lien %}<a href="{{ projet.lien }}">{{ projet.nom }}</a>{% else %}{{ projet.nom }}{% endif %}
+            </h3>
+            <div>
+                <p class="projet-phrase">{{ projet.phrase }}</p>
+                {% if projet.sous_liens %}
+                <p class="projet-liens">Trois concepts :
+                    {% for sous in projet.sous_liens %}<a href="{{ sous.lien }}">{{ sous.nom }}</a>{% endfor %}
+                </p>
+                {% endif %}
+            </div>
+            <div class="projet-explication" id="explication-{{ loop.index }}" hidden
+                 data-famille="{{ 'info' if projet.statut < 200 else 'succes' }}">
+                <p>{{ projet.explication }}</p>
+            </div>
+        </li>
+        {% endfor %}
     </ul>
+</section>
+
+<section class="page labo" id="labo" aria-labelledby="labo-titre">
+    <h2 class="titre-section" id="labo-titre">Le labo</h2>
+    <p class="texte gris">Chaque ligne est une vraie requête vers ce serveur. Chacune montre une notion du Web.</p>
+    <ul class="liste-labo">
+        {% for experience in experiences %}
+        <li>
+            <a href="{{ experience.lien }}">
+                <span class="requete">
+                    <span class="requete-methode">{{ experience.methode }}</span>
+                    <span class="requete-chemin">{{ experience.chemin }}</span>
+                    {% if experience.statut %}<span class="requete-statut" data-famille="{{ 'redirection' if experience.statut.startswith('3') else 'erreur' }}">→ {{ experience.statut }}</span>{% endif %}
+                </span>
+                <span class="notion">{{ experience.notion }}</span>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+
+{% endblock %}
+{% block scripts %}
+<script src="/static/vendor/gsap.min.js" defer></script>
+<script src="/static/vendor/ScrollTrigger.min.js" defer></script>
+<script src="/static/js/globe.js" defer></script>
+<script src="/static/js/voyage.js" defer></script>
 {% endblock %}
