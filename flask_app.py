@@ -56,7 +56,7 @@ PROJETS = [
     },
     {
         "statut": 200, "texte_statut": "OK", "nom": "Ce site",
-        "phrase": "Le PBL 8 « Découvrir le Web » de la MIA, poussé jusqu'au bout : il se regarde répondre.",
+        "phrase": "Le PBL 8 « Découvrir le Web » de la MIA, poussé jusqu'au bout.",
         "lien": "/",
         "sous_liens": [],
         "explication": "200 OK : la requête a réussi. Vous êtes dessus.",
